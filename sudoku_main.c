@@ -10,7 +10,7 @@ int main(void) {
   board_str* sudoku_board = make_board(length);
   for (int row = 0; row < length; row++) {
     for (int column = 0; column < length; column++) {
-      scanf("%d  ", &value);
+      scanf("%*[ \n\t]%d", &value);
       write_sudoku(row, column, value, sudoku_board);
     }
   }
