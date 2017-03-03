@@ -40,7 +40,7 @@ void free_board(board_str* b) {
 void print_board(int** b, int length) {
   for (int row = 0; row < length; row++) {
     for (int column = 0; column < length; column++) {
-      printf("%d  ", b[row][column]);
+      printf("  %d  ", b[row][column]);
     }
     printf("\n");
   }
