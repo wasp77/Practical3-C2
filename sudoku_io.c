@@ -57,14 +57,14 @@ validators check_sudoku(int** b, int length) {
        if (column > 0) {
          for (int i = 0; i < column; i++) {
            if (b[row][column] == b[row][i] && b[row][column] != 0) {
-             return INVAlID;
+             return INVALID;
            }
          }
        }
        if (row > 0) {
          for (int x = 0; x < row; x++) {
            if(b[row][column] == b[x][column] && b[row][column] != 0) {
-             return INVAlID;
+             return INVALID;
            }
          }
        }
@@ -80,14 +80,14 @@ validators check_sudoku(int** b, int length) {
         if (box_column > 0) {
           for (int t = i; i < box_column; i++) {
             if (b[box_row][box_column] == b[box_row][t] && b[box_row][box_column] != 0) {
-              return INVAlID;
+              return INVALID;
             }
           }
         }
         if (box_row > 0) {
           for (int x = i; x < box_row; x++) {
             if(b[box_row][box_column] == b[x][box_column] && b[box_row][box_column] != 0) {
-              return INVAlID;
+              return INVALID;
             }
           }
         }
