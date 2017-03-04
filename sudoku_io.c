@@ -47,58 +47,70 @@ void print_board(int** b, int length) {
 }
 
 validators check_sudoku(int** b, int length) {
-  bool contains_zero = false;
   int box_length = length/length;
+  bool incomplete_check = false;
+  validators checker;
+
   for (int row = 0; row < length; row++) {
     for (int column = 0; column < length; column++) {
       if (b[row][column] == 0) {
-        contains_zero = true;
-      }
-      if (column > 0) {
-        for (int i = 0; i < column; i++) {
-          if (b[row][column] == b[row][i] && b[row][column] != 0) {
-            return INVAlID;
-          }
+        incomplete_check = true;
+      } else{
+        checker = check_column(b, row, column);
+        if (checker == INVALID) {
+          return INVALID;
         }
-      }
-      if (row > 0) {
-        for (int x = 0; x < row; x++) {
-          if(b[row][column] == b[x][column] && b[row][column] != 0) {
-            return INVAlID;
-          }
+        checker = check_row(b, row, column);
+        if (checker == INVALID) {
+          return INVALID;
         }
       }
     }
   }
 
-  for(int i = 0; i < length; i += box_length) {
-    for(int box_row = i; box_row < box_length + i; box_row ++) {
+  for (int i = 0; i < length; i += box_length) {
+    for (int box_row = i; box_row < box_length + i; box_row++) {
       for (int box_column = i; box_column < box_length + i; box_column++) {
-        if (b[box_row][box_column] == 0) {
-          contains_zero = true;
-        }
-        if (box_column > 0) {
-          for (int t = i; i < box_column; i++) {
-            if (b[box_row][box_column] == b[box_row][t] && b[box_row][box_column] != 0) {
-              return INVAlID;
-            }
-          }
-        }
-        if (box_row > 0) {
-          for (int x = i; x < box_row; x++) {
-            if(b[box_row][box_column] == b[x][box_column] && b[box_row][box_column] != 0) {
-              return INVAlID;
-            }
-          }
+        checker = check_box(b, i, b[box_row][box_column], box_length + i);
+        if (checker == INVALID) {
+          return INVALID;
         }
       }
     }
   }
 
-
-  if (contains_zero == false) {
+  if(incomplete_check == false) {
     return COMPLETE;
   } else {
     return INCOMPLETE;
   }
+}
+
+validators check_row(int** b, int row, int column) {
+  for (int i = 0; i < row; i++) {
+    if(b[row][column] == b[i][column]) {
+      return INVALID;
+    }
+  }
+  return COMPLETE;
+}
+
+validators check_column(int** b, int row, int column) {
+  for (int i = 0; i < column; i++) {
+    if(b[row][column] == b[row][i]) {
+      return INVALID;
+    }
+  }
+  return COMPLETE;
+}
+
+validators check_box(int** b, int start, int value, int length) {
+  for (int i = start; i < length; i++) {
+    for (int x = start; i < length; i++) {
+      if (b[i][x] == value) {
+        return INVALID;
+      }
+    }
+  }
+  return COMPLETE;
 }

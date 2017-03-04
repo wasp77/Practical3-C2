@@ -32,7 +32,7 @@ int main(void) {
 int sudoku_solver(int** board, int length) {
   int completions = 0;
   switch (check_sudoku(board, length)) {
-    case INVAlID:
+    case INVALID:
         return 1;
         break;
     case INCOMPLETE:

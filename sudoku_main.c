@@ -18,7 +18,7 @@ int main(void) {
   print_board(sudoku_board -> board, length);
   printf("\n");
   switch (check_sudoku(sudoku_board -> board, length)) {
-    case INVAlID:
+    case INVALID:
         printf("INVALID\n");
         break;
     case INCOMPLETE:
