@@ -48,6 +48,7 @@ void print_board(int** b, int length) {
 
 validators check_sudoku(int** b, int length) {
   bool contains_zero = false;
+  int box_length = length/length;
   for (int row = 0; row < length; row++) {
     for (int column = 0; column < length; column++) {
       if (b[row][column] == 0) {
@@ -69,6 +70,32 @@ validators check_sudoku(int** b, int length) {
       }
     }
   }
+
+  for(int i = 0; i < length; i += box_length) {
+    for(int box_row = 0; box_row < box_length; box_row ++) {
+      for (int box_column = 0; box_column < box_length; box_column++) {
+        if (b[box_row][box_column] == 0) {
+          contains_zero = true;
+        }
+        if (box_column > 0) {
+          for (int i = 0; i < box_column; i++) {
+            if (b[box_row][box_column] == b[box_row][i] && b[box_row][box_column] != 0) {
+              return INVAlID;
+            }
+          }
+        }
+        if (box_row > 0) {
+          for (int x = 0; x < box_row; x++) {
+            if(b[box_row][box_column] == b[x][box_column] && b[box_row][box_column] != 0) {
+              return INVAlID;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
   if (contains_zero == false) {
     return COMPLETE;
   } else {
