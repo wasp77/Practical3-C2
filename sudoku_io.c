@@ -71,9 +71,11 @@ validators check_sudoku(int** b, int length) {
   for (int i = 0; i < length; i += box_length) {
     for (int box_row = i; box_row < box_length + i; box_row++) {
       for (int box_column = i; box_column < box_length + i; box_column++) {
-        checker = check_box(b, i, b[box_row][box_column], box_length + i);
-        if (checker == INVALID) {
-          return INVALID;
+        if (b[box_row][box_column] != 0) {
+          checker = check_box(b, i, b[box_row][box_column], box_length + i);
+          if (checker == INVALID) {
+            return INVALID;
+          }
         }
       }
     }
