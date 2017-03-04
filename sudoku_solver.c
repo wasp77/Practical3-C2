@@ -18,7 +18,7 @@ int main(void) {
   solve_checker = sudoku_solver(sudoku_board -> board, length);
 
   if (solve_checker == 1) {
-    printf("UNSOLVABlE\n");
+    printf("UNSOLVABLE\n");
   }
 
   if (solve_checker == 2) {
