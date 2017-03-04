@@ -17,4 +17,4 @@ validators check_column(int** b, int row, int column);
 validators check_box(int** b, int start, int value, int length);
 typedef enum bool {false, true} bool;
 
-int sudoku_solver(int** board, int length);
+int** sudoku_solver(int** board, int length);
