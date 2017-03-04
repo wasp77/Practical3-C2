@@ -72,20 +72,20 @@ validators check_sudoku(int** b, int length) {
   }
 
   for(int i = 0; i < length; i += box_length) {
-    for(int box_row = 0; box_row < box_length; box_row ++) {
-      for (int box_column = 0; box_column < box_length; box_column++) {
+    for(int box_row = i; box_row < box_length; box_row ++) {
+      for (int box_column = i; box_column < box_length; box_column++) {
         if (b[box_row][box_column] == 0) {
           contains_zero = true;
         }
         if (box_column > 0) {
-          for (int i = 0; i < box_column; i++) {
-            if (b[box_row][box_column] == b[box_row][i] && b[box_row][box_column] != 0) {
+          for (int t = i; i < box_column; i++) {
+            if (b[box_row][box_column] == b[box_row][t] && b[box_row][box_column] != 0) {
               return INVAlID;
             }
           }
         }
         if (box_row > 0) {
-          for (int x = 0; x < box_row; x++) {
+          for (int x = i; x < box_row; x++) {
             if(b[box_row][box_column] == b[x][box_column] && b[box_row][box_column] != 0) {
               return INVAlID;
             }
