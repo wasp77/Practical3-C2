@@ -39,8 +39,9 @@ void free_board(board_str* b) {
 
 void print_board(int** b, int length) {
   for (int row = 0; row < length; row++) {
+    printf("  ");
     for (int column = 0; column < length; column++) {
-      printf("  %d  ", b[row][column]);
+      printf("%2d", b[row][column]);
     }
     printf("\n");
   }
