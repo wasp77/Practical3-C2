@@ -12,9 +12,7 @@ int** copy_board(int** b);
 
 typedef enum validators {INVALID, INCOMPLETE, COMPLETE} validators;
 validators check_sudoku(int** b, int length);
-validators check_row(int** b, int row, int column);
-validators check_column(int** b, int row, int column);
-validators check_box(int** b, int start, int value, int length);
+validators check_list(int* list, int length);
 typedef enum bool {false, true} bool;
 
 int sudoku_solver(int** board, int length);
