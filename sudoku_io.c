@@ -51,6 +51,9 @@ validators check_sudoku(int** b, int length) {
   bool contains_zero = false;
   int board_row[length];
   int board_column[length];
+  int box[length];
+  int box_length = length / length;
+  int counter = 0;
 
 
   for (int row = 0; row < length; row++) {
@@ -77,6 +80,21 @@ validators check_sudoku(int** b, int length) {
     }
   }
 
+  for (int i = 0; i < length; i += box_length) {
+    for (int box_row = i; box_row < box_length + i; box_row ++) {
+      for (int box_column = i; box_column < box_length + i; box_column++) {
+        box[counter] = b[box_row][box_column];
+        counter++;
+      }
+    }
+    checker = check_list(box, length);
+    if (checker == INVALID) {
+      return INVALID;
+    } else if (checker == INCOMPLETE) {
+      contains_zero = true;
+    }
+  }
+
 
 
   if (contains_zero == true) {
@@ -93,14 +111,14 @@ validators check_list(int* list, int length) {
   for (int i = 0; i < length; i++) {
     if (list[i] == 0) {
       contains_zero = true;
-    } else {
-      for (int x = length; x > i; x--) {
-        if (list[i] == list[x] && list[x] != 0) {
-          return INVALID;
-        }
+    }
+    for (int x = length; x > i; x--) {
+      if (list[i] == list[x] && list[i] != 0) {
+        return INVALID;
       }
     }
   }
+
 
   if (contains_zero == true) {
     return INCOMPLETE;
