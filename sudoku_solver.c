@@ -1,6 +1,6 @@
 #include "sudoku.h"
 #include <stdio.h>
-static int answers_found = 0;
+static int answers = 0;
 
 int main(void) {
   int length;
@@ -46,9 +46,9 @@ validators sudoku_solver(int** board, int length) {
         }
         break;
     case COMPLETE:
-        answers_found++;
+        answers++;
    }
-   if (answers_found > 1) {
+   if (answers > 1) {
      return INCOMPLETE;
    } else {
      print_board(board, length);
