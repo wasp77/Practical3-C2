@@ -4,7 +4,6 @@
 int main(void) {
   int length;
   int value;
-  int completions = 0;
   validators solve_checker;
   scanf("%d", &length);
   length = length * length;
@@ -28,7 +27,7 @@ int main(void) {
 }
 
 validators sudoku_solver(int** board, int length) {
-  int completions = 0;
+  int answers_found = 0;
   switch (check_sudoku(board, length)) {
     case INVALID:
         return INVALID;
@@ -47,12 +46,12 @@ validators sudoku_solver(int** board, int length) {
         }
         break;
     case COMPLETE:
-        completions++;
-  }
+        answers_found++;
+   }
+   if (answers_found > 1) {
+     return INCOMPLETE;
+   } else {
+     print_board(board, length);
+   }
 
-  if (completions > 1) {
-    return INCOMPLETE;
-  } else {
-   print_board(board, length);
-  }
 }
