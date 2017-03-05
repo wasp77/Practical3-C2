@@ -91,7 +91,7 @@ validators check_list(int* list, int length) {
       contains_zero = true;
     } else {
       for (int x = length; x > i; x--) {
-        if (list[i] == list[x]) {
+        if (list[i] == list[x] && list[i] != 0) {
           return INVALID;
         }
       }
