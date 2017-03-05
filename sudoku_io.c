@@ -47,7 +47,10 @@ void print_board(int** b, int length) {
 }
 
 validators check_sudoku(int** b, int length) {
-  validators checker;
+  validators row_checker;
+  validators column_checker;
+  validators box_checker;
+
   bool contains_zero = false;
   int board_row[length];
   int board_column[length];
@@ -60,10 +63,11 @@ validators check_sudoku(int** b, int length) {
     for (int column = 0; column < length; column++) {
       board_row[column] = b[row][column];
     }
-    checker = check_list(board_row, length);
-    if (checker == INVALID) {
+    row_checker = check_list(board_row, length);
+    if (row_checker == INVALID) {
       return INVALID;
-    } else if (checker == INCOMPLETE) {
+    }
+    if (row_checker == INCOMPLETE) {
       contains_zero = true;
     }
   }
@@ -72,29 +76,41 @@ validators check_sudoku(int** b, int length) {
     for (int row = 0; row < length; row++) {
       board_column[row] = b[row][column];
     }
-    checker = check_list(board_column, length);
-    if (checker == INVALID) {
+    column_checker = check_list(board_column, length);
+    if (column_checker == INVALID) {
       return INVALID;
-    } else if (checker == INCOMPLETE) {
+    }
+    if (column_checker == INCOMPLETE) {
       contains_zero = true;
     }
   }
 
-  for (int i = 0; i < length; i += box_length) {
-    for (int box_row = i; box_row < box_length + i; box_row ++) {
-      for (int box_column = i; box_column < box_length + i; box_column++) {
-        box[counter] = b[box_row][box_column];
+  for (int i = 0; i < length; i+= box_length) {
+    for (int row = i; row < box_length + i; row ++) {
+      for (int column = 0; column < length; column++) {
+        if (column == box_length) {
+          box_checker = check_list(box, length);
+          counter = 0;
+        }
+        if (box_checker == INVALID) {
+          return INVALID;
+        }
+        if (box_checker == INCOMPLETE) {
+          contains_zero = true;
+        }
+        box[counter] = b[row][column];
         counter++;
       }
-    }
-    checker = check_list(box, length);
-    if (checker == INVALID) {
-      return INVALID;
-    } else if (checker == INCOMPLETE) {
-      contains_zero = true;
+      box_checker = check_list(box, length);
+      counter = 0;
+      if (box_checker == INVALID) {
+        return INVALID;
+      }
+      if (box_checker == INCOMPLETE) {
+        contains_zero = true;
+      }
     }
   }
-
 
 
   if (contains_zero == true) {
@@ -112,7 +128,7 @@ validators check_list(int* list, int length) {
     if (list[i] == 0) {
       contains_zero = true;
     }
-    for (int x = length; x > i; x--) {
+    for (int x = i + 1; x < length; x++) {
       if (list[i] == list[x] && list[i] != 0) {
         return INVALID;
       }
