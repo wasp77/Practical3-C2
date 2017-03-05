@@ -1,5 +1,6 @@
 #include "sudoku.h"
 #include <stdio.h>
+static int answers_found = 0;
 
 int main(void) {
   int length;
@@ -27,7 +28,6 @@ int main(void) {
 }
 
 validators sudoku_solver(int** board, int length) {
-  int answers_found = 0;
   switch (check_sudoku(board, length)) {
     case INVALID:
         return INVALID;
