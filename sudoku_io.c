@@ -49,6 +49,7 @@ void print_board(int** b, int length) {
 validators check_sudoku(int** b, int length) {
   bool contains_zero = false;
   int box_length = length/length;
+  validators box_check;
   for (int row = 0; row < length; row++) {
     for (int column = 0; column < length; column++) {
        if (b[row][column] == 0) {
@@ -76,19 +77,10 @@ validators check_sudoku(int** b, int length) {
       for (int box_column = i; box_column < box_length + i; box_column++) {
         if (b[box_row][box_column] == 0) {
           contains_zero = true;
-        }
-        if (box_column > 0) {
-          for (int t = i; i < box_column; i++) {
-            if (b[box_row][box_column] == b[box_row][t] && b[box_row][box_column] != 0) {
-              return INVALID;
-            }
-          }
-        }
-        if (box_row > 0) {
-          for (int x = i; x < box_row; x++) {
-            if(b[box_row][box_column] == b[x][box_column] && b[box_row][box_column] != 0) {
-              return INVALID;
-            }
+        } else {
+          box_check = check_box(b, i, b[box_row][box_column], (box_length + i));
+          if (box_check == INVALID) {
+            return INVALID;
           }
         }
       }
@@ -102,3 +94,43 @@ validators check_sudoku(int** b, int length) {
     return INCOMPLETE;
   }
 }
+
+validators check_box(int** b, int start, int value, int length) {
+  for (int i = start; i < length; i++) {
+    for (int x = start; x < length; x++) {
+      if (b[i][x] == value) {
+        return INVALID;
+      }
+    }
+  }
+  return COMPLETE;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// if (box_column > 0) {
+//   for (int t = i; i < box_column; i++) {
+//     if (b[box_row][box_column] == b[box_row][t] && b[box_row][box_column] != 0) {
+//       return INVALID;
+//     }
+//   }
+// }
+// if (box_row > 0) {
+//   for (int x = i; x < box_row; x++) {
+//     if(b[box_row][box_column] == b[x][box_column] && b[box_row][box_column] != 0) {
+//       return INVALID;
+//     }
+//   }
+// }
