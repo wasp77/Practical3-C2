@@ -5,7 +5,7 @@ int main(void) {
   int length;
   int value;
   int completions = 0;
-  int** solve_checker;
+  validators solve_checker;
   scanf("%d", &length);
   length = length * length;
   board_str* sudoku_board = make_board(length);
@@ -17,27 +17,21 @@ int main(void) {
   }
 
   solve_checker = sudoku_solver(sudoku_board -> board, length);
-
-  if (solve_checker == NULL) {
+  if (solve_checker == INVALID) {
     printf("UNSOLVABlE\n");
-  } else {
-    completions ++;
   }
-
-  if (completions > 1) {
+  if (solve_checker == INCOMPLETE) {
     printf("MULTIPLE\n");
-  } else {
-    print_board(solve_checker, length);
   }
-
   free_board(sudoku_board);
   return 0;
 }
 
-int** sudoku_solver(int** board, int length) {
+validators sudoku_solver(int** board, int length) {
+  int completions = 0;
   switch (check_sudoku(board, length)) {
     case INVALID:
-        return NULL;
+        return INVALID;
         break;
     case INCOMPLETE:
         for (int row = 0; row < length; row++) {
@@ -53,6 +47,12 @@ int** sudoku_solver(int** board, int length) {
         }
         break;
     case COMPLETE:
-        return board;
+        completions++;
+  }
+
+  if (completions > 1) {
+    return INCOMPLETE;
+  } else {
+   print_board(board, length);
   }
 }
