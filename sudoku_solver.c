@@ -29,43 +29,54 @@ int main(void) {
   return 0;
 }
 
-int sudoku_solver(int** board, int row, int column,int length) {
-  validators cell_checker;
-  int** new_board;
-  if (row == length) {
+int sudoku_solver(int** board, int row, int column, int length) {
+  validators checker;
+  if (all_asigned(board, length)) {
     return 1;
   }
 
-  if (board[row][column]) {
-    if (column < length) {
-      if (sudoku_solver(board, row, column++, length)) {
-        return 1;
-      }
-    } else {
+  if (board[row][column] != 0) {
+    if (column + 1 == length) {
       if (sudoku_solver(board, row++, column, length)) {
         return 1;
       }
+    } else {
+      if (sudoku_solver(board, row, column++, length)) {
+        return 1;
+      }
     }
-    return 0;
   }
+
 
   for (int i = 1; i < length + 1; i++) {
     board[row][column] = i;
-    cell_checker = check_sudoku(board, length);
-    if (cell_checker != INVALID) {
-      if (column < length) {
-        if (sudoku_solver(new_board, row, column++, length)) {
+    checker = check_sudoku(board, length);
+    if (checker != INVALID) {
+      if (column + 1 == length) {
+        if (sudoku_solver(board, row++, column, length)) {
           return 1;
         }
       } else {
-        if (sudoku_solver(new_board, row++, column, length)) {
+        if (sudoku_solver(board, row, column++, length)) {
           return 1;
         }
       }
-      board[row][column] = 0;
     }
   }
+  board[row][column] = 0;
   return 0;
+}
+
+
+int all_asigned(int** b, int length) {
+  for (int row = 0; row < length; row++) {
+    for (int column = 0; column < length; column++) {
+      if (b[row][column] == 0) {
+        return 0;
+      }
+    }
+  }
+  return 1;
 }
 
 
