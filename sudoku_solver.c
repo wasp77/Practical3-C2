@@ -35,23 +35,8 @@ int sudoku_solver(int** board, int row, int column, int length) {
     return 1;
   }
 
-  if (board[row][column] != 0) {
-    if (column + 1 == length) {
-      if (sudoku_solver(board, row++, column, length)) {
-        return 1;
-      }
-    } else {
-      if (sudoku_solver(board, row, column++, length)) {
-        return 1;
-      }
-    }
-  }
-
-
-  for (int i = 1; i < length + 1; i++) {
-    board[row][column] = i;
-    checker = check_sudoku(board, length);
-    if (checker != INVALID) {
+  if (row != length && column != length) {
+    if (board[row][column] != 0) {
       if (column + 1 == length) {
         if (sudoku_solver(board, row++, column, length)) {
           return 1;
@@ -61,7 +46,24 @@ int sudoku_solver(int** board, int row, int column, int length) {
           return 1;
         }
       }
-      board[row][column] = 0;
+    }
+
+
+    for (int i = 1; i < length + 1; i++) {
+      board[row][column] = i;
+      checker = check_sudoku(board, length);
+      if (checker != INVALID) {
+        if (column + 1 == length) {
+          if (sudoku_solver(board, row++, column, length)) {
+            return 1;
+          }
+        } else {
+          if (sudoku_solver(board, row, column++, length)) {
+            return 1;
+          }
+        }
+        board[row][column] = 0;
+      }
     }
   }
   return 0;
