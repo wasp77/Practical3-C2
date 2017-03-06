@@ -44,6 +44,7 @@ int sudoku_solver(int** board, int length) {
             int** updated_board = copy_board(board);
             updated_board[row][column] = i;
             sudoku_solver(updated_board, length);
+            updated_board[row][column] = 0;
           }
         }
       }
