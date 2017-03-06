@@ -61,8 +61,8 @@ int sudoku_solver(int** board, int row, int column, int length) {
           return 1;
         }
       }
-      board[row][column] = 0;
     }
+    board[row][column] = 0;
   }
   return 0;
 }
