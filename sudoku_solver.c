@@ -1,6 +1,6 @@
 #include "sudoku.h"
 #include <stdio.h>
-static int answers;
+static int answers = 0;
 
 int main(void) {
   int length;
