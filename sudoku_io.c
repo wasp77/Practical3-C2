@@ -102,9 +102,6 @@ validators check_sudoku(int** b, int length) {
       if (box_checker == INVALID) {
         return INVALID;
       }
-      if (box_checker == INCOMPLETE && contains_zero != true) {
-        contains_zero = true;
-      }
       free(box);
     }
   }
