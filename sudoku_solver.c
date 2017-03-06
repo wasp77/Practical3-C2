@@ -30,16 +30,9 @@ int main(void) {
 
 int sudoku_solver(int** board, int length) {
   static int answers_found = 0;
-  for (int i = 0; i < length; i++) {
-    for (int x = 0; x < length; x++) {
-      printf("%3d",board[i][x]);
-    }
-    printf("\n");
-  }
   validators check_board;
   check_board = check_sudoku(board, length);
   if (check_board == INVALID) {
-    printf("invalid\n");
     return answers_found;
   }
   if (check_board == INCOMPLETE) {
@@ -57,7 +50,6 @@ int sudoku_solver(int** board, int length) {
   }
   if (check_board == COMPLETE) {
     answers_found++;
-    printf("complete\n");
   }
 
   if (answers_found == 1) {
@@ -67,3 +59,13 @@ int sudoku_solver(int** board, int length) {
     return answers_found;
   }
 }
+
+
+
+
+// for (int i = 0; i < length; i++) {
+//   for (int x = 0; x < length; x++) {
+//     printf("%3d",board[i][x]);
+//   }
+//   printf("\n");
+// }
