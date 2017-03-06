@@ -10,7 +10,7 @@ int main(void) {
   scanf("%d", &length);
   length = length * length;
   board_str* sudoku_board = make_board(length);
-  
+
   for (int row = 0; row < length; row++) {
     for (int column = 0; column < length; column++) {
       scanf("%*[ \n\t]%d", &value);
@@ -51,7 +51,7 @@ int sudoku_solver(int** board, int length) {
         break;
     case COMPLETE:
         if (answer_found == false) {
-          answer_found = true
+          answer_found = true;
         } else {
           return 2;
         }
