@@ -57,4 +57,5 @@ int sudoku_solver(int** board, int length) {
         }
   }
   print_board(board, length);
+  return 0;
 }
