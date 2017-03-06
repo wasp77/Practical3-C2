@@ -18,19 +18,16 @@ int main(void) {
   }
 
   solve_checker = sudoku_solver(sudoku_board -> board, length);
-  if (solve_checker == 0) {
-    printf("UNSOLVABLE\n");
-  } else if (solve_checker == 2) {
-    printf("MULTIPLE\n");
-  } else {
+  if (solve_checker) {
     print_board(sudoku_board -> board, length);
+  } else {
+    printf("UNSOLVABLE\n");
   }
   free_board(sudoku_board);
   return 0;
 }
 
 int sudoku_solver(int** board, int length) {
-  static int answers = 0;
   validators check_board;
   check_board = check_sudoku(board, length);
   if (check_board == INVALID) {
@@ -44,18 +41,12 @@ int sudoku_solver(int** board, int length) {
             int** updated_board = copy_board(board);
             updated_board[row][column] = i;
             sudoku_solver(updated_board, length);
-            updated_board[row][column] = 0;
           }
         }
       }
     }
   }
   if (check_board == COMPLETE) {
-    answers++;
-  }
-  if (answers > 1) {
-    return 2;
-  } else {
     return 1;
   }
 }
