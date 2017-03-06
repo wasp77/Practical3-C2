@@ -100,6 +100,7 @@ validators check_sudoku(int** b, int length) {
        printf("\n");
       box_checker = check_list(box,length);
       if (box_checker == INVALID) {
+        printf("%d\n", 777777777);
         return INVALID;
       }
       free(box);
