@@ -50,7 +50,9 @@ int sudoku_solver(int** board, int length) {
         }
     case COMPLETE:
         answers++;
-        print_board(board, length);
+        if (answers == 1) {
+          print_board(board, length);
+        }
   }
   if (answers > 1) {
     return 2;
