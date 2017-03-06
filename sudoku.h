@@ -17,4 +17,4 @@ int* get_box (int** board, int start_row, int start_column, int length);
 int unsquare(int num);
 typedef enum bool {false, true} bool;
 
-int sudoku_solver(int** board, int length);
+int sudoku_solver(int** board, int row, int column, int length);

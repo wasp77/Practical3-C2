@@ -17,37 +17,52 @@ int main(void) {
     }
   }
 
-  solve_checker = sudoku_solver(sudoku_board -> board, length);
+  solve_checker = sudoku_solver(sudoku_board -> board, 0, 0, length);
+
   if (solve_checker) {
     print_board(sudoku_board -> board, length);
   } else {
     printf("UNSOLVABLE\n");
   }
+
   free_board(sudoku_board);
   return 0;
 }
 
-int sudoku_solver(int** board, int length) {
-  validators check_board;
-  check_board = check_sudoku(board, length);
-  if (check_board == INVALID) {
-    return 0;
+int sudoku_solver(int** board, int row, int column,int length) {
+  validators cell_checker;
+  if (row == length) {
+    return 1;
   }
-  if (check_board == INCOMPLETE) {
-    for (int row = 0; row < length; row++) {
-      for (int column = 0; column < length; column++) {
-        if (board[row][column] == 0) {
-          for (int i = 1; i <= length; i++) {
-            int** updated_board = copy_board(board);
-            updated_board[row][column] = i;
-            sudoku_solver(updated_board, length);
-          }
-        }
+
+  if (board[row][column]) {
+    if (column < length) {
+      if (sudoku_solver(board, row, column++, length)) {
+        return 1;
+      }
+    } else {
+      if (sudoku_solver(board, row++, column, length)) {
+        return 1;
       }
     }
+    return 0;
   }
-  if (check_board == COMPLETE) {
-    return 1;
+
+  for (int i = 1; i < length + 1; i++) {
+    board[row][column] = i;
+    cell_checker = check_sudoku(board, length);
+    if (cell_checker != INVALID) {
+      if (column < length) {
+        if (sudoku_solver(board, row, column++, length)) {
+          return 1;
+        }
+      } else {
+        if (sudoku_solver(board, row++, column, length)) {
+          return 1;
+        }
+      }
+      board[row][column] = 0;
+    }
   }
 }
 
