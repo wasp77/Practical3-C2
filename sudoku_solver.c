@@ -1,10 +1,14 @@
 #include "sudoku.h"
 #include <stdio.h>
 
+static bool invalid = false;
+static bool answer = false;
+static bool multiple = false;
+
 int main(void) {
   int length;
   int value;
-  int solve_checker;
+  int** solved_board;
 
   scanf("%d", &length);
   length = length * length;
@@ -17,25 +21,26 @@ int main(void) {
     }
   }
 
-  solve_checker = sudoku_solver(sudoku_board -> board, length);
+  solved_board = sudoku_solver(sudoku_board -> board, length);
 
-  if (solve_checker == 1) {
+  if (invalid == true) {
     printf("UNSOLVABLE\n");
+  } else if (multiple == true) {
+    printf("MULTIPLE\n");
+  } else {
+    print_board(solved_board, length);
   }
 
-  if (solve_checker == 2) {
-    printf("MULTIPLE\n");
-  }
 
   free_board(sudoku_board);
   return 0;
 }
 
-int sudoku_solver(int** board, int length) {
-  bool answer_found = false;
+int** sudoku_solver(int** board, int length) {
   switch (check_sudoku(board, length)) {
     case INVALID:
-        return 1;
+        invalid = true;
+        return board;
     case INCOMPLETE:
         for (int row = 0; row < length; row++) {
           for (int column = 0; column < length; column++) {
@@ -49,12 +54,11 @@ int sudoku_solver(int** board, int length) {
           }
         }
     case COMPLETE:
-        if (answer_found == false) {
-          answer_found = true;
-        } else {
-          return 2;
+        if (answer == false) {
+          answer = true;
+          return board;
         }
   }
-  print_board(board, length);
-  return 0;
+  multiple = true;
+  return board;
 }
