@@ -56,6 +56,14 @@ int sudoku_solver(int** board, int length) {
     }
   }
   if (check_board == COMPLETE) {
+    answers_found++;
     printf("complete\n");
+  }
+
+  if (answers_found == 1) {
+    print_board(board, length);
+    return answers_found;
+  } else {
+    return answers_found;
   }
 }
