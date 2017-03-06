@@ -57,8 +57,7 @@ validators check_sudoku(int** b, int length) {
   int board_column[length];
   int* box;
 
-  int box_length = length / length;
-  printf("%d\n", box_length);
+  int box_length = unsquare(length);
 
 
   for (int row = 0; row < length; row++) {
@@ -144,4 +143,12 @@ validators check_list(int* list, int length) {
     return COMPLETE;
   }
 
+}
+
+int unsquare(int num) {
+  for (int i = 0; i < num; i++) {
+    if ((i*i) == num) {
+      return i;
+    }
+  }
 }
