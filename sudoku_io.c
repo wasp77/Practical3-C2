@@ -101,6 +101,7 @@ validators check_sudoku(int** b, int length) {
       if (box_checker == INCOMPLETE && contains_zero != true) {
         contains_zero = true;
       }
+      free(box);
     }
   }
 
@@ -114,7 +115,7 @@ validators check_sudoku(int** b, int length) {
 }
 
 int* get_box (int** board, int start_row, int start_column, int length) {
-  int the_box[length * length];
+  int* the_box = malloc(sizeof(int) * (length*length));
   int counter = 0;
   for (int row = start_row; row < length + start_row; row++) {
     for (int column = start_column; column < length + start_column; column++) {
