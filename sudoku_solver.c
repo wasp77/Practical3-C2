@@ -31,6 +31,7 @@ int main(void) {
 
 int sudoku_solver(int** board, int row, int column,int length) {
   validators cell_checker;
+  int** new_board;
   if (row == length) {
     return 1;
   }
@@ -49,15 +50,16 @@ int sudoku_solver(int** board, int row, int column,int length) {
   }
 
   for (int i = 1; i < length + 1; i++) {
-    board[row][column] = i;
+    new_board = copy_board(board);
+    new_board[row][column] = i;
     cell_checker = check_sudoku(board, length);
     if (cell_checker != INVALID) {
       if (column < length) {
-        if (sudoku_solver(board, row, column++, length)) {
+        if (sudoku_solver(new_board, row, column++, length)) {
           return 1;
         }
       } else {
-        if (sudoku_solver(board, row++, column, length)) {
+        if (sudoku_solver(new_board, row++, column, length)) {
           return 1;
         }
       }
