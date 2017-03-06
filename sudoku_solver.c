@@ -39,7 +39,7 @@ int sudoku_solver(int** board, int length) {
     for (int row = 0; row < length; row++) {
       for (int column = 0; column < length; column++) {
         if (board[row][column] == 0) {
-          for (int i = 1; i <= length; i++) {
+          for (int i = 0; i <= length; i++) {
             int** updated_board = copy_board(board);
             updated_board[row][column] = i;
             sudoku_solver(updated_board, length);
