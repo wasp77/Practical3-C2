@@ -56,6 +56,7 @@ validators check_sudoku(int** b, int length) {
   int board_row[length];
   int board_column[length];
   int* box;
+  int counter = 0;
 
   int box_length = length / length;
 
@@ -93,19 +94,17 @@ validators check_sudoku(int** b, int length) {
 
   for(int row = 0; row < length; row += box_length) {
     for(int column = 0; column < length; column += box_length) {
+      counter++;
       box = get_box(b, row, column, box_length);
-       for (int i = 0; i < length; i++) {
-         printf("%d ", box[i]);
-       }
-       printf("\n");
       box_checker = check_list(box,length);
       if (box_checker == INVALID) {
-        printf("%d\n", 777777777);
         return INVALID;
       }
       free(box);
     }
   }
+
+  printf("%d\n",counter);
 
   if (contains_zero == true) {
     return INCOMPLETE;
