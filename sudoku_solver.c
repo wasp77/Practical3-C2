@@ -21,7 +21,7 @@ int main(void) {
   solve_checker = sudoku_solver(sudoku_board -> board, length);
   if (solve_checker == 0) {
     printf("UNSOLVABLE\n");
-  } else if (solve_checker == 1) {
+  } else if (solve_checker == 2) {
     printf("MULTIPLE\n");
   } else {
     print_board(sudoku_board -> board, length);
@@ -53,6 +53,8 @@ int sudoku_solver(int** board, int length) {
     answers++;
   }
   if (answers > 1) {
+    return 2;
+  } else {
     return 1;
   }
 }
