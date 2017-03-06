@@ -55,10 +55,9 @@ validators check_sudoku(int** b, int length) {
 
   int board_row[length];
   int board_column[length];
-  int box[length];
+  int* box;
 
   int box_length = length / length;
-  int counter = 0;
 
 
   for (int row = 0; row < length; row++) {
@@ -92,33 +91,18 @@ validators check_sudoku(int** b, int length) {
   }
 
 
-  for (int i = 0; i < length; i+=box_length) {
-    for (int row = i; row < box_length + i; row ++) {
-      for (int column = 0; column < length; column++) {
-        if (column % box_length == 0) {
-          box_checker = check_list(box, length);
-          if (column_checker == INVALID) {
-            return INVALID;
-          }
-          if (column_checker == INCOMPLETE && contains_zero != true) {
-            contains_zero = true;
-          }
-          counter = 0;
-        }
-        box[counter] = b[row][column];
-        counter++;
-      }
-      box_checker = check_list(box, length);
+  for(int row = 0; row < length; row += box_length) {
+    for(int column = 0; column < length; column += box_length) {
+      box = get_box(b, row, column, box_length);
+      box_checker = check_list(box,length);
       if (column_checker == INVALID) {
         return INVALID;
       }
       if (column_checker == INCOMPLETE && contains_zero != true) {
         contains_zero = true;
       }
-      counter = 0;
     }
   }
-
 
   if (contains_zero == true) {
     return INCOMPLETE;
@@ -127,6 +111,18 @@ validators check_sudoku(int** b, int length) {
   }
 
 
+}
+
+int* get_box (int** board, int start_row, int start_column, int length) {
+  int the_box[length * length];
+  int counter = 0;
+  for (int row = start_row; row < length + start_row; row++) {
+    for (int column = start_column; column < length + start_column; column++) {
+      the_box[counter] = board[row][column];
+      counter++;
+    }
+  }
+  return the_box;
 }
 
 validators check_list(int* list, int length) {
