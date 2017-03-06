@@ -52,7 +52,7 @@ int sudoku_solver(int** board, int row, int column,int length) {
   for (int i = 1; i < length + 1; i++) {
     new_board = copy_board(board);
     new_board[row][column] = i;
-    cell_checker = check_sudoku(board, length);
+    cell_checker = check_sudoku(new_board, length);
     if (cell_checker != INVALID) {
       if (column < length) {
         if (sudoku_solver(new_board, row, column++, length)) {
