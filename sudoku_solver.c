@@ -18,43 +18,42 @@ int main(void) {
   }
 
   solve_checker = sudoku_solver(sudoku_board -> board, length);
-
-  if (solve_checker == 1) {
-    printf("UNSOLVABLE\n");
+  if (solve_checker == 0) {
+    printf("UNSOLVABlE\n");
   }
-
-  if (solve_checker == 2) {
+  if (solve_checker > 1) {
     printf("MULTIPLE\n");
   }
-
   free_board(sudoku_board);
   return 0;
 }
 
 int sudoku_solver(int** board, int length) {
-  int answers = 0;
-  switch (check_sudoku(board, length)) {
-    case INVALID:
-        return 1;
-    case INCOMPLETE:
-        for (int row = 0; row < length; row++) {
-          for (int column = 0; column < length; column++) {
-            if (board[row][column] == 0) {
-              for (int i = 1; i <= length; i++) {
-                int** updated_board = copy_board(board);
-                updated_board[row][column] = i;
-                sudoku_solver(updated_board, length);
-              }
-            }
+  static int answers_found = 0;
+  validators check_board;
+  check_board = check_sudoku(board, length);
+  if (check_board == INVALID) {
+    return answers_found;
+  }
+  if (check_board == INCOMPLETE) {
+    for (int row = 0; row < length; row++) {
+      for (int column = 0; column < length; column++) {
+        if (board[row][column] == 0) {
+          for (int i = 1; i <= length; i++) {
+            int** updated_board = copy_board(board);
+            updated_board[row][column] = i;
+            sudoku_solver(updated_board, length);
           }
         }
-    case COMPLETE:
-        answers++;
-        if (answers == 1) {
-          print_board(board, length);
-        }
+      }
+    }
   }
-  if (answers > 1) {
-    return 2;
+  if (check_board == COMPLETE) {
+    answers_found ++;
+  }
+  if (answers_found == 1) {
+    print_board(board, length);
+  } else {
+    return answers_found;
   }
 }
