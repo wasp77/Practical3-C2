@@ -95,10 +95,10 @@ validators check_sudoku(int** b, int length) {
     for(int column = 0; column < length; column += box_length) {
       box = get_box(b, row, column, box_length);
       box_checker = check_list(box,length);
-      if (column_checker == INVALID) {
+      if (box_checker == INVALID) {
         return INVALID;
       }
-      if (column_checker == INCOMPLETE && contains_zero != true) {
+      if (box_checker == INCOMPLETE && contains_zero != true) {
         contains_zero = true;
       }
     }
