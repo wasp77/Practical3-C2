@@ -48,7 +48,6 @@ int sudoku_solver(int** board, int length) {
             }
           }
         }
-        break;
     case COMPLETE:
         if (answer_found == false) {
           answer_found = true;
