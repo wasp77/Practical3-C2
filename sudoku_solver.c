@@ -1,14 +1,16 @@
 #include "sudoku.h"
 #include <stdio.h>
-static int completions = 0;
+static bool answer_found = false;
 
 int main(void) {
   int length;
   int value;
   int solve_checker;
+
   scanf("%d", &length);
   length = length * length;
   board_str* sudoku_board = make_board(length);
+  
   for (int row = 0; row < length; row++) {
     for (int column = 0; column < length; column++) {
       scanf("%*[ \n\t]%d", &value);
@@ -48,13 +50,11 @@ int sudoku_solver(int** board, int length) {
         }
         break;
     case COMPLETE:
-        completions++;
+        if (answer_found == false) {
+          answer_found = true
+        } else {
+          return 2;
+        }
   }
-
-  if (completions == 1) {
-    print_board(board, length);
-    return 0;
-  } else {
-    return 2;
-  }
+  print_board(board, length);
 }

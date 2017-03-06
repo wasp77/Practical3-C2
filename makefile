@@ -14,4 +14,4 @@ sudoku_solver.o : sudoku_solver.c sudoku.h
 	clang -Wall -Wextra sudoku_solver.c -c
 
 clean :
-	rm sudoku_main.o sudoku_io.o sudoku_solver.o sudoku_check sudoku_solver
+	rm -f sudoku_main.o sudoku_io.o sudoku_solver.o sudoku_check sudoku_solver
