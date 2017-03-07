@@ -17,12 +17,6 @@ int** make_2DArray(int length) {
   return the_array;
 }
 
-
-void read_sudoku(int row, int column, board_str* b) {
-  int output = b -> board[row][column];
-  printf("%d\n", output);
-}
-
 void write_sudoku(int row, int column, int value, board_str* b) {
   b -> board[row][column] = value;
 }
