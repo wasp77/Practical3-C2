@@ -45,6 +45,7 @@ int sudoku_solver(int** board, int row, int column, int length) {
         return 1;
       }
     }
+    return 0;
   }
 
   for (int i = 1; i <= length; i++) {
@@ -63,7 +64,6 @@ int sudoku_solver(int** board, int row, int column, int length) {
     }
     board[row][column] = 0;
   }
-  return 0;
 }
 
 
