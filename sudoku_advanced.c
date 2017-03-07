@@ -64,15 +64,3 @@ int sudoku_solver(int** board, int row, int column, int length) {
   }
   return 0;
 }
-
-
-int all_asigned(int** b, int length) {
-  for (int row = 0; row < length; row++) {
-    for (int column = 0; column < length; column++) {
-      if (b[row][column] == 0) {
-        return 0;
-      }
-    }
-  }
-  return 1;
-}

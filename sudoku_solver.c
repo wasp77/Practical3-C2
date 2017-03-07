@@ -17,9 +17,9 @@ int main(void) {
 
   solve_checker = sudoku_solver(sudoku_board -> board, 0, 0, length);
 
-  if (solve_checker) {
+  if (solve_checker) { // If returns a truthy value print the board because an answer is found
     print_board(sudoku_board -> board, length);
-  } else {
+  } else { // Else the sudoku is unsolvable
     printf("UNSOLVABLE\n");
   }
 
@@ -29,11 +29,11 @@ int main(void) {
 
 int sudoku_solver(int** board, int row, int column, int length) {
   validators checker;
-  if (all_asigned(board, length)) {
+  if (all_asigned(board, length)) { // If all values have been assigned then the sudoku is complete
     return 1;
   }
 
-  if (board[row][column] != 0) {
+  if (board[row][column] != 0) { // Make sure we are not filling in non zero values
     if (column + 1 == length) {
       if (sudoku_solver(board, row + 1, 0, length)) {
         return 1;
@@ -47,7 +47,7 @@ int sudoku_solver(int** board, int row, int column, int length) {
   }
 
   for (int i = 1; i <= length; i++) {
-    board[row][column] = i;
+    board[row][column] = i; // Check board with this value
     checker = check_sudoku(board, length);
     if (checker != INVALID) {
       if (column + 1 == length) {
@@ -60,7 +60,7 @@ int sudoku_solver(int** board, int row, int column, int length) {
         }
       }
     }
-    board[row][column] = 0;
+    board[row][column] = 0; // Reset cell
   }
   return 0;
 }
