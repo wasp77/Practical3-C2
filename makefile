@@ -5,7 +5,7 @@ sudoku_solver : sudoku_solver.o sudoku_io.o
 	clang sudoku_solver.o sudoku_io.o -o sudoku_solver
 
 sudoku_advanced: sudoku_advanced.o sudoku_io.o
-	clang sudoku_advanced.o sudoku_io.o -o sudoku_advanced
+	clang sudoku_advanced.o sudoku_io.o -o2 -o sudoku_advanced
 
 sudoku_main.o : sudoku_main.c sudoku.h
 	clang -Wall -Wextra sudoku_main.c -c
