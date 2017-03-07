@@ -32,9 +32,7 @@ int sudoku_solver(int** board, int row, int column, int length) {
   if (all_asigned(board, length)) {
     return 1;
   }
-  if (row < length && column < length) {
-    /* code */
-  }
+
   if (board[row][column] != 0) {
     if (column + 1 == length) {
       if (sudoku_solver(board, row + 1, 0, length)) {
@@ -61,8 +59,8 @@ int sudoku_solver(int** board, int row, int column, int length) {
           return 1;
         }
       }
+      board[row][column] = 0;
     }
-    board[row][column] = 0;
   }
 }
 
